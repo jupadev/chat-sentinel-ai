@@ -1,0 +1,56 @@
+[project]
+name = "chat-sentinel"
+version = "0.1.0"
+description = "Near-realtime moderation for short, informal chat messages (Rioplatense Spanish), CPU only."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "emoji>=2.14",
+    "fastapi>=0.115",
+    "httpx>=0.28",
+    "numpy>=2.0",
+    "onnxruntime>=1.22",
+    "pydantic>=2.10",
+    "pyyaml>=6.0",
+    "redis>=5.2",
+    "tokenizers>=0.21",
+    "uvicorn[standard]>=0.34",
+]
+
+[dependency-groups]
+# One-off model export and the torch-vs-ONNX benchmark. Never installed in the runtime image.
+export = [
+    "huggingface-hub>=0.30",
+    "optimum[onnx]>=2.0",
+    "torch>=2.6",
+    "transformers>=4.50",
+]
+dev = [
+    "fakeredis>=2.26",
+    "pytest>=8.3",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sentinel"]
+
+[tool.uv]
+# Everything runs in linux containers (dev machine and VPS alike).
+environments = ["sys_platform == 'linux'"]
+# Supply-chain guard: ignore releases younger than two weeks at lock time.
+exclude-newer = "2026-10-14T00:00:00Z"
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

@@ -1,0 +1,19 @@
+# /etc/nginx/sites-available/chat-sentinel — then:
+#   ln -s /etc/nginx/sites-available/chat-sentinel /etc/nginx/sites-enabled/
+#   nginx -t && systemctl reload nginx
+#   certbot --nginx -d moderation.example.com
+server {
+    listen 80;
+    listen [::]:80;
+    server_name moderation.example.com;
+
+    client_max_body_size 64k;
+
+    location / {
+        proxy_pass http://127.0.0.1:8100;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 15s;
+    }
+}
