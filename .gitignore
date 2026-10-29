@@ -224,3 +224,4 @@ __marimo__/
 /data/db/
 /reports/*
 !/reports/.gitkeep
+/.atl/
