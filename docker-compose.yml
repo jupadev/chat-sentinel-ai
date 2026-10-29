@@ -1,0 +1,94 @@
+# Sized to share a 4 vCPU / 8 GB VPS with another production stack:
+#   memory limits: worker 1.25g + api 256m + redis 128m = ~1.6 GB (+ ollama 2g with the llm profile)
+#   CPU: worker and ollama are pinned to vCPUs 2-3; they run one after the other, never together.
+# The API is published on 127.0.0.1 only; the host nginx terminates TLS (deploy/nginx.conf.example).
+# Redis and Ollama are reachable inside the compose network only.
+
+x-app: &app
+  build:
+    context: .
+    target: runtime
+  image: chat-sentinel:runtime
+  volumes:
+    - ./data/db:/data
+    - ./models:/models:ro
+    - ./config.yaml:/app/config.yaml:ro
+    - ./reports:/app/reports
+  restart: unless-stopped
+
+services:
+  api:
+    <<: *app
+    command: ["uvicorn", "sentinel.api:create_app", "--factory", "--host", "0.0.0.0", "--port", "8000",
+              "--proxy-headers", "--forwarded-allow-ips", "*"]
+    ports:
+      - "127.0.0.1:${SENTINEL_PORT:-8100}:8000"
+    depends_on: [redis]
+    cpuset: "2,3"
+    deploy:
+      resources:
+        limits: { memory: 256m }
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/healthz')"]
+      interval: 30s
+      timeout: 5s
+
+  worker:
+    <<: *app
+    command: ["python", "-m", "sentinel.worker"]
+    environment:
+      SENTINEL_WORKER_NAME: worker-1
+    depends_on: [redis]
+    cpuset: "2,3"
+    deploy:
+      resources:
+        limits: { memory: 1280m }
+
+  redis:
+    image: redis:8.10.2-alpine
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory", "100mb", "--maxmemory-policy", "noeviction"]
+    volumes:
+      - redis_data:/data
+    deploy:
+      resources:
+        limits: { memory: 128m }
+    restart: unless-stopped
+
+  # Only with llm.enabled: true in config.yaml. `docker compose --profile llm up -d`
+  ollama:
+    image: ollama/ollama:0.40.4
+    profiles: [llm]
+    environment:
+      OLLAMA_KEEP_ALIVE: "-1"
+      OLLAMA_NUM_PARALLEL: "1"
+      OLLAMA_MAX_LOADED_MODELS: "1"
+    volumes:
+      - ./models/ollama:/root/.ollama
+    cpuset: "2,3"
+    deploy:
+      resources:
+        limits: { memory: 2g }
+    restart: unless-stopped
+
+  # One-off jobs: model export, benchmarks, tests. `docker compose --profile tools run --rm tools ...`
+  tools:
+    build:
+      context: .
+      target: tools
+    image: chat-sentinel:tools
+    profiles: [tools]
+    # Model export peaks at a few GB. With a limit, an overrun kills only this container instead of
+    # letting the host OOM killer pick a process from another stack.
+    deploy:
+      resources:
+        limits: { memory: 6g }
+    environment:
+      HF_HOME: /models/hf-cache
+    volumes:
+      - ./data/db:/data
+      - ./models:/models
+      - ./config.yaml:/app/config.yaml:ro
+      - ./reports:/app/reports
+
+volumes:
+  redis_data:

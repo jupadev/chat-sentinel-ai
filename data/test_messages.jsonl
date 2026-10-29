@@ -1,0 +1,96 @@
+{"id": "t001", "conversation_id": "c01", "author_id": "m1", "text": "Hola Caro! cómo andás? Te escribo por la mentoría del jueves", "expected": "ok", "category": "coordination"}
+{"id": "t002", "conversation_id": "c01", "author_id": "e1", "text": "holaa! todo bien, el jueves a las 18 me queda perfecto 🙌", "expected": "ok", "category": "coordination"}
+{"id": "t003", "conversation_id": "c01", "author_id": "m1", "text": "Dale, te mando el link de meet https://meet.google.com/abc-defg-hij", "expected": "ok", "category": "coordination"}
+{"id": "t004", "conversation_id": "c01", "author_id": "e1", "text": "genial, ahí estaré. llevo el excel de costos?", "expected": "ok", "category": "coordination"}
+{"id": "t005", "conversation_id": "c01", "author_id": "m1", "text": "Sí porfa, y si podés los números de octubre", "expected": "ok", "category": "coordination"}
+{"id": "t006", "conversation_id": "c01", "author_id": "e1", "text": "perfecto, mil gracias!!", "expected": "ok", "category": "normal"}
+{"id": "t007", "conversation_id": "c02", "author_id": "m2", "text": "Leí el plan de negocios. Te soy sincero: los costos están mal calculados y el precio no cubre ni la materia prima", "expected": "ok", "category": "hard_feedback"}
+{"id": "t008", "conversation_id": "c02", "author_id": "e2", "text": "uff, posta? pensé que estaba bien", "expected": "ok", "category": "normal"}
+{"id": "t009", "conversation_id": "c02", "author_id": "m2", "text": "Así como está, en 6 meses cerrás. Hay que rehacer la estructura de costos desde cero", "expected": "ok", "category": "hard_feedback"}
+{"id": "t010", "conversation_id": "c02", "author_id": "e2", "text": "ok, me duele pero tenés razón", "expected": "ok", "category": "normal"}
+{"id": "t011", "conversation_id": "c02", "author_id": "m2", "text": "El logo tampoco funciona, parece hecho en paint. Invertí en un diseñador aunque sea barato", "expected": "ok", "category": "hard_feedback"}
+{"id": "t012", "conversation_id": "c02", "author_id": "m2", "text": "No te lo tomes personal, es para que el proyecto sobreviva", "expected": "ok", "category": "normal"}
+{"id": "t013", "conversation_id": "c03", "author_id": "m3", "text": "jajaja boludo no puedo creer que vendiste todo el stock en un día 😂", "expected": "ok", "category": "banter"}
+{"id": "t014", "conversation_id": "c03", "author_id": "e3", "text": "jajaja viste? ni yo me la creo", "expected": "ok", "category": "banter"}
+{"id": "t015", "conversation_id": "c03", "author_id": "m3", "text": "sos un genio pelotudo, te dije que el precio estaba bien", "expected": "ok", "category": "banter"}
+{"id": "t016", "conversation_id": "c03", "author_id": "e3", "text": "jaja gracias crack, sin vos no salía", "expected": "ok", "category": "banter"}
+{"id": "t017", "conversation_id": "c03", "author_id": "m3", "text": "ahora no te agrandes eh, forro 😜", "expected": "ok", "category": "banter"}
+{"id": "t018", "conversation_id": "c03", "author_id": "e3", "text": "jajaja jamás. el lunes te invito un café", "expected": "ok", "category": "banter"}
+{"id": "t019", "conversation_id": "c04", "author_id": "e4", "text": "Che, todavía no me mandaste la devolución que prometiste hace dos semanas", "expected": "ok", "category": "normal"}
+{"id": "t020", "conversation_id": "c04", "author_id": "m4", "text": "Estoy con mil cosas, no me apures", "expected": "ok", "category": "normal"}
+{"id": "t021", "conversation_id": "c04", "author_id": "e4", "text": "sos un inútil, no servís para nada como mentor", "expected": "flag", "category": "insult"}
+{"id": "t022", "conversation_id": "c04", "author_id": "m4", "text": "la verdad sos una pelotuda, no entendés nada de negocios", "expected": "flag", "category": "insult"}
+{"id": "t023", "conversation_id": "c04", "author_id": "e4", "text": "andate a la mierda", "expected": "flag", "category": "insult"}
+{"id": "t024", "conversation_id": "c04", "author_id": "m4", "text": "qué idiota que sos, por eso te va como te va", "expected": "flag", "category": "insult"}
+{"id": "t025", "conversation_id": "c05", "author_id": "m5", "text": "Hola Sofi, cómo va el emprendimiento?", "expected": "ok", "category": "normal"}
+{"id": "t026", "conversation_id": "c05", "author_id": "e5", "text": "Hola! bien, avanzando con la tienda online", "expected": "ok", "category": "normal"}
+{"id": "t027", "conversation_id": "c05", "author_id": "m5", "text": "Qué linda saliste en la foto de perfil 😍 tenés novio?", "expected": "flag", "category": "harassment"}
+{"id": "t028", "conversation_id": "c05", "author_id": "e5", "text": "prefiero que hablemos del proyecto", "expected": "ok", "category": "normal"}
+{"id": "t029", "conversation_id": "c05", "author_id": "m5", "text": "dale no seas así, salgamos a tomar algo y lo charlamos mejor en persona 😏", "expected": "flag", "category": "harassment"}
+{"id": "t030", "conversation_id": "c05", "author_id": "m5", "text": "por qué no me contestás? te escribí 5 veces", "expected": "flag", "category": "harassment"}
+{"id": "t031", "conversation_id": "c05", "author_id": "m5", "text": "si no salís conmigo no te voy a ayudar con la ronda de inversión", "expected": "flag", "category": "harassment"}
+{"id": "t032", "conversation_id": "c06", "author_id": "e6", "text": "Para más rápido pasame tu número así te escribo por wsp", "expected": "flag", "category": "contact_sharing"}
+{"id": "t033", "conversation_id": "c06", "author_id": "m6", "text": "mi cel es 264 4123456", "expected": "flag", "category": "contact_sharing"}
+{"id": "t034", "conversation_id": "c06", "author_id": "e6", "text": "agendame: +54 9 11 5555-1234", "expected": "flag", "category": "contact_sharing"}
+{"id": "t035", "conversation_id": "c06", "author_id": "m6", "text": "escribime a juan.perez@gmail.com y te paso el material", "expected": "flag", "category": "contact_sharing"}
+{"id": "t036", "conversation_id": "c06", "author_id": "e6", "text": "seguime en ig: @tienda.mariposa así ves los productos", "expected": "flag", "category": "contact_sharing"}
+{"id": "t037", "conversation_id": "c06", "author_id": "m6", "text": "mandame un mail a juanperez arroba hotmail punto com", "expected": "flag", "category": "contact_sharing"}
+{"id": "t038", "conversation_id": "c06", "author_id": "e6", "text": "hablame por privado al insta mejor", "expected": "flag", "category": "contact_sharing"}
+{"id": "t039", "conversation_id": "c07", "author_id": "x1", "text": "GANANCIAS DIARIAS GARANTIZADAS!!! invertí 100 usd y retirá 500 en una semana 💰💰", "expected": "flag", "category": "spam"}
+{"id": "t040", "conversation_id": "c07", "author_id": "x1", "text": "Entrá ya a www.plata-facil.xyz y duplicá tu inversión", "expected": "flag", "category": "spam"}
+{"id": "t041", "conversation_id": "c07", "author_id": "x1", "text": "Trabajá desde tu casa y ganá en dólares, consultame", "expected": "flag", "category": "spam"}
+{"id": "t042", "conversation_id": "c07", "author_id": "x1", "text": "oferta exclusiva para emprendedores, mirá bit.ly/3xYz9Q", "expected": "flag", "category": "spam"}
+{"id": "t043", "conversation_id": "c08", "author_id": "e8", "text": "Una consulta: conviene monotributo o responsable inscripto para arrancar?", "expected": "ok", "category": "normal"}
+{"id": "t044", "conversation_id": "c08", "author_id": "m8", "text": "Para arrancar monotributo sin dudas, después vemos según facturación", "expected": "ok", "category": "normal"}
+{"id": "t045", "conversation_id": "c08", "author_id": "e8", "text": "buenísimo. y la categoría? facturaría unos $ 15.000.000 al año", "expected": "ok", "category": "normal"}
+{"id": "t046", "conversation_id": "c08", "author_id": "m8", "text": "Con eso andarías por la categoría D, pero confirmalo con un contador", "expected": "ok", "category": "normal"}
+{"id": "t047", "conversation_id": "c08", "author_id": "e8", "text": "dale, gracias! 🙏", "expected": "ok", "category": "normal"}
+{"id": "t048", "conversation_id": "c08", "author_id": "e8", "text": "el turno en AFIP es el 28/11/2026 así que llego bien", "expected": "ok", "category": "coordination"}
+{"id": "t049", "conversation_id": "c09", "author_id": "e9", "text": "Me cagaste con el contacto del proveedor, ya vas a ver", "expected": "flag", "category": "threat"}
+{"id": "t050", "conversation_id": "c09", "author_id": "e9", "text": "te voy a cagar a trompadas cuando te vea", "expected": "flag", "category": "threat"}
+{"id": "t051", "conversation_id": "c09", "author_id": "e9", "text": "sé dónde trabajás, cuidate", "expected": "flag", "category": "threat"}
+{"id": "t052", "conversation_id": "c10", "author_id": "x2", "text": "estos bolitas de mierda vienen a sacarnos el laburo", "expected": "hide", "category": "hate"}
+{"id": "t053", "conversation_id": "c10", "author_id": "x2", "text": "no voy a trabajar con un negro de mierda como vos", "expected": "hide", "category": "hate"}
+{"id": "t054", "conversation_id": "c10", "author_id": "x2", "text": "los sudacas no saben emprender", "expected": "hide", "category": "hate"}
+{"id": "t055", "conversation_id": "c10", "author_id": "x2", "text": "sos un mogólico, no entendés nada", "expected": "hide", "category": "hate"}
+{"id": "t056", "conversation_id": "c10", "author_id": "x2", "text": "las mujeres no sirven para los negocios, volvé a la cocina", "expected": "flag", "category": "hate"}
+{"id": "t057", "conversation_id": "c11", "author_id": "m11", "text": "holi, mañana no llego, podemos pasar la reu al viernes?", "expected": "ok", "category": "coordination"}
+{"id": "t058", "conversation_id": "c11", "author_id": "e11", "text": "sii obvio, viernes 10hs?", "expected": "ok", "category": "coordination"}
+{"id": "t059", "conversation_id": "c11", "author_id": "m11", "text": "de 10 a 12 tengo libre así que perfecto 👌", "expected": "ok", "category": "coordination"}
+{"id": "t060", "conversation_id": "c11", "author_id": "e11", "text": "joya. t mando el doc con las preguntas x aca", "expected": "ok", "category": "coordination"}
+{"id": "t061", "conversation_id": "c11", "author_id": "m11", "text": "dale, compartilo por drive https://docs.google.com/document/d/1AbC", "expected": "ok", "category": "coordination"}
+{"id": "t062", "conversation_id": "c11", "author_id": "e11", "text": "listo, ya te lo compartí", "expected": "ok", "category": "normal"}
+{"id": "t063", "conversation_id": "c12", "author_id": "e12", "text": "estoy re quemada, nada me sale y no vendo un carajo 😩", "expected": "ok", "category": "normal"}
+{"id": "t064", "conversation_id": "c12", "author_id": "m12", "text": "Es normal en esta etapa, la puta madre, a todos nos pasó", "expected": "ok", "category": "normal"}
+{"id": "t065", "conversation_id": "c12", "author_id": "e12", "text": "qué bronca, el proveedor me clavó otra vez con el pedido", "expected": "ok", "category": "normal"}
+{"id": "t066", "conversation_id": "c12", "author_id": "m12", "text": "Esos proveedores son unos chantas, buscá otro urgente", "expected": "ok", "category": "normal"}
+{"id": "t067", "conversation_id": "c12", "author_id": "e12", "text": "sí, ya estoy en eso. gracias por bancarme", "expected": "ok", "category": "normal"}
+{"id": "t068", "conversation_id": "c13", "author_id": "m13", "text": "El pitch es aburrido y largo, a los 30 segundos ya nadie te escucha", "expected": "ok", "category": "hard_feedback"}
+{"id": "t069", "conversation_id": "c13", "author_id": "m13", "text": "Esa idea no es nueva, hay 20 competidores más grandes. Sin diferencial no vas a ningún lado", "expected": "ok", "category": "hard_feedback"}
+{"id": "t070", "conversation_id": "c13", "author_id": "e13", "text": "entiendo, qué me recomendás?", "expected": "ok", "category": "normal"}
+{"id": "t071", "conversation_id": "c13", "author_id": "m13", "text": "Enfocate en un nicho chico. Y dejá de gastar en publicidad que no funciona, es tirar la plata", "expected": "ok", "category": "hard_feedback"}
+{"id": "t072", "conversation_id": "c14", "author_id": "m14", "text": "No sé ni para qué te ayudo, sos un caso perdido", "expected": "flag", "category": "insult"}
+{"id": "t073", "conversation_id": "c14", "author_id": "m14", "text": "con ese cerebro de mosquito no vas a llegar a nada", "expected": "flag", "category": "insult"}
+{"id": "t074", "conversation_id": "c14", "author_id": "m14", "text": "dejá de hacerme perder el tiempo, gil", "expected": "flag", "category": "insult"}
+{"id": "t075", "conversation_id": "c15", "author_id": "m15", "text": "te queda re bien ese vestido en la foto del local 😉", "expected": "flag", "category": "harassment"}
+{"id": "t076", "conversation_id": "c15", "author_id": "m15", "text": "mandame una foto tuya ahora", "expected": "flag", "category": "harassment"}
+{"id": "t077", "conversation_id": "c15", "author_id": "m15", "text": "sos muy linda para estar sola emprendiendo", "expected": "flag", "category": "harassment"}
+{"id": "t078", "conversation_id": "c16", "author_id": "e16", "text": "che boluda te acordás que hoy era la feria? jajaj", "expected": "ok", "category": "banter"}
+{"id": "t079", "conversation_id": "c16", "author_id": "m16", "text": "nooo boludaaa me olvidé por completo 🤦‍♀️", "expected": "ok", "category": "banter"}
+{"id": "t080", "conversation_id": "c16", "author_id": "e16", "text": "sos un desastre jajaja te amo igual", "expected": "ok", "category": "banter"}
+{"id": "t081", "conversation_id": "c16", "author_id": "m16", "text": "jajaja perdón perdón, la próxima voy seguro", "expected": "ok", "category": "banter"}
+{"id": "t082", "conversation_id": "c17", "author_id": "x3", "text": "Hola! tengo una propuesta de negocio increíble para vos", "expected": "ok", "category": "normal"}
+{"id": "t083", "conversation_id": "c17", "author_id": "x3", "text": "Hola! tengo una propuesta de negocio increíble para vos", "expected": "ok", "category": "normal"}
+{"id": "t084", "conversation_id": "c17", "author_id": "x3", "text": "Hola! tengo una propuesta de negocio increíble para vos", "expected": "flag", "category": "spam"}
+{"id": "t085", "conversation_id": "c18", "author_id": "e18", "text": "alguien sabe de algún curso de marketing digital gratis?", "expected": "ok", "category": "normal"}
+{"id": "t086", "conversation_id": "c18", "author_id": "m18", "text": "El de Google Activate está bueno y es gratis", "expected": "ok", "category": "normal"}
+{"id": "t087", "conversation_id": "c18", "author_id": "e18", "text": "buenísimo, lo busco. Ahora estoy haciendo cursos.com.ar y tmb sirve", "expected": "flag", "category": "external_link"}
+{"id": "t088", "conversation_id": "c18", "author_id": "m18", "text": "Excelente, lo importante es aplicar lo que aprendés", "expected": "ok", "category": "normal"}
+{"id": "t089", "conversation_id": "c18", "author_id": "e18", "text": "este mes vendí 37 unidades, el doble que septiembre 🚀", "expected": "ok", "category": "normal"}
+{"id": "t090", "conversation_id": "c18", "author_id": "m18", "text": "Tremendo!! felicitaciones, eso es laburo", "expected": "ok", "category": "normal"}
+{"id": "t091", "conversation_id": "c19", "author_id": "e19", "text": "sos un chanta, me vendiste humo con la mentoría", "expected": "flag", "category": "insult"}
+{"id": "t092", "conversation_id": "c19", "author_id": "e19", "text": "ojalá te fundas", "expected": "flag", "category": "insult"}
+{"id": "t093", "conversation_id": "c19", "author_id": "m19", "text": "Entiendo que estés enojado, hablemos con calma", "expected": "ok", "category": "normal"}
+{"id": "t094", "conversation_id": "c20", "author_id": "x4", "text": "sos un h1j0 d3 put4", "expected": "flag", "category": "insult"}
+{"id": "t095", "conversation_id": "c20", "author_id": "x4", "text": "hdp devolveme la plata", "expected": "flag", "category": "insult"}
+{"id": "t096", "conversation_id": "c20", "author_id": "x4", "text": "lcdtm", "expected": "flag", "category": "insult"}

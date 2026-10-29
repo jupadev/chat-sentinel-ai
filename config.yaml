@@ -1,0 +1,214 @@
+# chat-sentinel configuration. Every service reads this file (path override: SENTINEL_CONFIG).
+
+database_path: /data/sentinel.db
+redis_url: redis://redis:6379/0
+
+api:
+  # Requests per minute per API key.
+  rate_limit_per_minute: 600
+  max_text_length: 4000
+
+batch:
+  # A batch closes at max_size messages or max_wait_seconds after its first message.
+  max_size: 32
+  max_wait_seconds: 2.0
+
+context:
+  # Previous messages of the same conversation passed to the LLM.
+  messages: 4
+
+thresholds:
+  # risk_score < llm_min             -> ok
+  # llm_min <= risk_score <= llm_max -> flag with doubtful=true; the LLM decides if enabled
+  # risk_score > llm_max             -> flag
+  # risk_score >= hide            -> hide
+  llm_min: 0.40
+  llm_max: 0.80
+  hide: 0.98
+
+encoders:
+  # torch | onnx | onnx-int8 (torch needs the tools image)
+  runtime: onnx-int8
+  # The worker and Ollama are pinned to 2 of the 4 vCPUs (docker-compose.yml); production keeps the rest.
+  threads: 2
+  models_dir: /models/encoders
+  models:
+    hate:
+      repo: pysentimiento/robertuito-hate-speech
+      revision: db125ee7be2ad74457b900ae49a7e0f14f7a496c
+      preprocess: tweet_es
+      max_length: 128
+      activation: sigmoid
+      score_labels: [hateful]
+      weight: 1.0
+    toxicity:
+      # Base, not large (xlmr-large-toxicity-classifier-v2): the VPS shares its 8 GB with production.
+      repo: textdetox/xlmr-base-toxicity-classifier
+      revision: 0fe4ba2cedce35b4f8997362a01f35bbde0306f5
+      preprocess: none
+      max_length: 128
+      activation: softmax
+      score_labels: [toxic]
+      weight: 0.9
+    sentiment:
+      repo: pysentimiento/robertuito-sentiment-analysis
+      revision: a2cc0f67ebd705c55191e25a05ba23d885fcc09b
+      preprocess: tweet_es
+      max_length: 128
+      activation: softmax
+      score_labels: [NEG]
+      # Low weight: harsh but valid feedback is negative and must stay ok.
+      weight: 0.25
+
+llm:
+  # Off for the POC: doubtful messages are flagged and counted (verdicts.doubtful) to learn how many
+  # there are before paying for an LLM. To enable: true, then `docker compose --profile llm up -d`.
+  enabled: false
+  base_url: http://ollama:11434
+  # 1.4 GB. qwen3:4b-instruct-2507-q4_K_M (2.5 GB) is better with nuance but does not fit next to production.
+  model: qwen3:1.7b
+  # Qwen3 reasons before answering by default; on CPU that costs tens of seconds.
+  think: false
+  # Completes "You moderate a private chat inside ..." in the system prompt.
+  platform: a professional platform where mentors and entrepreneurs from Argentina talk
+  timeout_seconds: 90
+  num_ctx: 2048
+  num_thread: 2
+  # Keep the model loaded forever; reloading costs several seconds on CPU.
+  keep_alive: -1
+  # When false, an LLM "hide" is downgraded to "flag" (doubt -> flag, never hide).
+  can_hide: false
+
+webhook:
+  timeout_seconds: 5
+  max_attempts: 3
+
+# Rules run first, on every message. action: flag | hide | ignore (ignore = record the hit only).
+# Wordlists and `normalized: true` patterns match a normalized text: lowercase, no accents,
+# runs of 3+ equal letters collapsed ("boluuudo" -> "boludo"). Wordlists also undo leetspeak.
+rules:
+  - name: phone
+    type: phone
+    action: flag
+    category: contact_sharing
+    min_digits: 8
+
+  - name: email
+    type: regex
+    action: flag
+    category: contact_sharing
+    patterns:
+      - '[\w.+-]+@[\w-]+(\.[\w-]+)+'
+      - '\b[\w.+-]+\s*(\(at\)|\[at\]|\barroba\b)\s*[\w-]+\s*(\.|\bpunto\b)\s*(com|ar|net|org)\b'
+
+  - name: social_handle
+    type: regex
+    action: flag
+    category: contact_sharing
+    patterns:
+      - '\b(ig|insta|instagram|telegram|tiktok|twitter|x)\b\s*:?\s*@[\w.]{3,}'
+
+  - name: contact_request
+    type: regex
+    action: flag
+    category: contact_sharing
+    normalized: true
+    patterns:
+      - '\b(pasame|pasa|mandame|dame|escribime|hablame)\b.{0,25}\b(numero|cel|celu|telefono|whatsapp|whats|wsp|wpp|wasap|mail|correo|ig|insta|instagram|telegram)\b'
+      - '\b(escribime|hablame|seguime)\b.{0,10}\b(al|por)\b.{0,6}\b(whatsapp|wsp|wpp|wasap|privado|insta|ig|telegram)\b'
+
+  - name: external_link
+    type: link
+    action: flag
+    category: external_link
+    allowed_domains:
+      - meet.google.com
+      - zoom.us
+      - teams.microsoft.com
+      - calendar.google.com
+      - docs.google.com
+      - drive.google.com
+
+  - name: repeated_message
+    type: repeated
+    action: flag
+    category: spam
+    min_repeats: 3
+    window_minutes: 10
+    # Shorter texts ("dale", "gracias") repeat legitimately.
+    min_length: 12
+
+  - name: spam_phrases
+    type: wordlist
+    action: flag
+    category: spam
+    words:
+      - ganancia garantizada
+      - ganancias garantizadas
+      - ganancias diarias
+      - inversion garantizada
+      - duplica tu inversion
+      - trabaja desde tu casa
+      - hace click aca
+
+  - name: slurs
+    type: wordlist
+    action: hide
+    category: hate
+    words:
+      - negro de mierda
+      - negros de mierda
+      - negra de mierda
+      - bolita de mierda
+      - bolitas de mierda
+      - paragua de mierda
+      - sudaca
+      - sudacas
+      - trolo
+      - trolos
+      - puto de mierda
+      - mogolico
+      - mogolica
+      - retrasado mental
+
+  - name: threats
+    type: regex
+    action: flag
+    category: threat
+    normalized: true
+    patterns:
+      - '\bte (voy|vamos) a (matar|cagar a (palos|trompadas|pinas)|romper la cara)\b'
+      - '\bse (donde|en que) (vivis|trabajas)\b'
+      - '\bte (voy|vamos) a hacer mierda\b'
+
+  - name: strong_insults
+    type: wordlist
+    action: flag
+    category: insult
+    words:
+      - hijo de puta
+      - hija de puta
+      - hdp
+      - la concha de tu madre
+      - lcdtm
+      - andate a la mierda
+      - forro de mierda
+
+  # Everyday Rioplatense words that are often friendly. Recorded and shown to the LLM, never acted on.
+  - name: mild_insults
+    type: wordlist
+    action: ignore
+    category: insult
+    words:
+      - boludo
+      - boluda
+      - pelotudo
+      - pelotuda
+      - forro
+      - forra
+      - gil
+      - tarado
+      - tarada
+      - idiota
+      - imbecil
+      - inutil
