@@ -81,7 +81,7 @@ services:
     # letting the host OOM killer pick a process from another stack.
     deploy:
       resources:
-        limits: { memory: 4g }
+        limits: { memory: 6g }
     environment:
       HF_HOME: /models/hf-cache
     volumes:
